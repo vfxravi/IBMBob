@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cook Detail — TiffinFinder</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .detail-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+      margin-top: 2rem;
+    }
+    .detail-img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: var(--radius);
+    }
+    .detail-info h1 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+    .detail-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 0.8rem 0;
+      align-items: center;
+    }
+    .detail-price-box {
+      background: #fff3ee;
+      border: 2px solid #FF6B35;
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      margin-top: 1rem;
+    }
+    .detail-price-box .price-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    .detail-price-box .price-row .label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .detail-price-box .price-row .value {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--primary);
+    }
+    .contact-btn {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+    .contact-btn a {
+      flex: 1;
+      text-align: center;
+      padding: 0.7rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .btn-call { background: var(--secondary); color: white; }
+    .btn-whatsapp { background: #25D366; color: white; }
+
+    /* Menu section */
+    .menu-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+    .menu-item {
+      background: #fff3ee;
+      color: var(--primary);
+      padding: 0.35rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid #ffd5c0;
+    }
+
+    /* Reviews */
+    .review-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-bottom: 0.8rem;
+    }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+    .review-user { font-weight: 600; font-size: 0.95rem; }
+    .review-text { color: var(--text-muted); font-size: 0.9rem; }
+
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-icon { font-size: 1.1rem; min-width: 1.5rem; }
+    .info-label { color: var(--text-muted); min-width: 90px; font-size: 0.85rem; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--primary); }
+
+    @media (max-width: 700px) {
+      .detail-hero { grid-template-columns: 1fr; }
+      .detail-img { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo"><a href="index.html">🍱 Tiffin<span>Finder</span></a></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="listings.html">Browse</a></li>
+    <li><a href="register.html" class="btn-nav">List Your Kitchen</a></li>
+  </ul>
+</nav>
+
+<section class="section">
+  <div class="container">
+    <a href="listings.html" class="back-link">← Wapas Listings Pe Jao</a>
+
+    <div id="detailContent">
+      <p style="color:#aaa; text-align:center; padding:3rem;">Loading... 🍱</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Made with ❤️ for <strong>Bangalore</strong> | TiffinFinder © 2024
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/main.js"></script>
+<script src="js/detail.js"></script>
+</body>
+</html>

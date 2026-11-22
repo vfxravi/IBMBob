@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TiffinFinder Bangalore — Ghar Ka Khana, Ghar Ke Paas</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 60%, #FFB347 100%);
+      color: white;
+      padding: 4rem 1.5rem 3.5rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 900;
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.92;
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .search-wrapper {
+      position: relative;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .search-box {
+      display: flex;
+      gap: 0.5rem;
+      background: white;
+      border-radius: 50px;
+      padding: 0.4rem 0.4rem 0.4rem 1.2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Autocomplete dropdown */
+    .autocomplete-list {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0; right: 0;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+      overflow: hidden;
+      z-index: 200;
+      display: none;
+    }
+    .autocomplete-list.open { display: block; }
+    .ac-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.7rem 1.2rem;
+      cursor: pointer;
+      font-size: 0.93rem;
+      transition: background 0.15s;
+      border-bottom: 1px solid #f3ede8;
+    }
+    .ac-item:last-child { border-bottom: none; }
+    .ac-item:hover, .ac-item.highlighted {
+      background: #fff3ee;
+    }
+    .ac-item .ac-icon { font-size: 1rem; min-width: 1.2rem; }
+    .ac-item .ac-label { flex: 1; color: #2d2d2d; text-align: left; }
+    .ac-item .ac-type {
+      font-size: 0.75rem;
+      color: #aaa;
+      background: #f5f0eb;
+      padding: 0.15rem 0.5rem;
+      border-radius: 50px;
+    }
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      color: #333;
+      background: transparent;
+    }
+    .search-box button {
+      background: #FF6B35;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .search-box button:hover { background: #e55a26; }
+
+    /* Stats bar */
+    .stats-bar {
+      background: white;
+      border-bottom: 1px solid #e8e0d8;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #FF6B35;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: #777;
+    }
+
+    /* Areas quick filter */
+    .areas-row {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.8rem;
+    }
+    .area-chip {
+      padding: 0.4rem 1rem;
+      background: white;
+      border: 1.5px solid #e8e0d8;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    .area-chip:hover, .area-chip.active {
+      background: #FF6B35;
+      color: white;
+      border-color: #FF6B35;
+    }
+
+    /* How it works */
+    .how-section {
+      background: white;
+      border-top: 1px solid #e8e0d8;
+      border-bottom: 1px solid #e8e0d8;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .step {
+      text-align: center;
+      padding: 1rem;
+    }
+    .step-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .step h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .step p {
+      font-size: 0.88rem;
+      color: #777;
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.7rem; }
+      .steps-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .stats-bar { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo">🍱 Tiffin<span>Finder</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="listings.html">Browse</a></li>
+    <li><a href="register.html" class="btn-nav">List Your Kitchen</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>🏠 Ghar Ka Khana,<br/>Ghar Ke Paas</h1>
+  <p>Bangalore ke best home cooks se tiffin book karo — Swiggy se sasta, maa ke haath jaisa swadisht!</p>
+  <div class="search-wrapper">
+    <div class="search-box">
+      <input type="text" id="heroSearch" placeholder="Apna area search karo... (Koramangala, HSR...)"
+             autocomplete="off" />
+      <button onclick="searchArea()">🔍 Dhundho</button>
+    </div>
+    <div class="autocomplete-list" id="acList"></div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">120+</div>
+    <div class="stat-label">Home Cooks</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2,400+</div>
+    <div class="stat-label">Happy Customers</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">15+</div>
+    <div class="stat-label">Areas in Bangalore</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">₹80</div>
+    <div class="stat-label">Starting Price / Meal</div>
+  </div>
+</div>
+
+<!-- Featured Listings -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">⭐ Featured Tiffin Providers</h2>
+    <p class="section-subtitle">Bangalore ke top-rated home cooks — real reviews, fresh food daily</p>
+
+    <!-- Area Filter Chips -->
+    <div class="areas-row" id="areaChips">
+      <div class="area-chip active" onclick="filterByArea('all', this)">All Areas</div>
+      <div class="area-chip" onclick="filterByArea('Koramangala', this)">Koramangala</div>
+      <div class="area-chip" onclick="filterByArea('HSR Layout', this)">HSR Layout</div>
+      <div class="area-chip" onclick="filterByArea('Indiranagar', this)">Indiranagar</div>
+      <div class="area-chip" onclick="filterByArea('Whitefield', this)">Whitefield</div>
+      <div class="area-chip" onclick="filterByArea('Marathahalli', this)">Marathahalli</div>
+      <div class="area-chip" onclick="filterByArea('Electronic City', this)">Electronic City</div>
+    </div>
+
+    <div class="grid-3" id="featuredGrid">
+      <!-- Cards injected by JS -->
+      <div style="color:#aaa; padding:2rem; grid-column: 1/-1; text-align:center;">Loading tiffins... 🍱</div>
+    </div>
+
+    <div style="text-align:center; margin-top:2rem;">
+      <a href="listings.html" class="btn btn-outline">Sab Dekho →</a>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="section how-section">
+  <div class="container">
+    <h2 class="section-title" style="text-align:center;">🤔 Kaise Kaam Karta Hai?</h2>
+    <p class="section-subtitle" style="text-align:center; margin-bottom:2rem;">3 simple steps mein ghar ka khana pao</p>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-icon">🔍</div>
+        <h3>1. Search Karo</h3>
+        <p>Apna area type karo aur nearby tiffin providers dekho</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">📋</div>
+        <h3>2. Menu Check Karo</h3>
+        <p>Menu, price, timings aur reviews padho, apna favorite choose karo</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">📞</div>
+        <h3>3. Contact Karo</h3>
+        <p>Directly call ya WhatsApp karo — simple, no commission!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA for Cooks -->
+<section class="section" style="background: #FFF3EE;">
+  <div class="container" style="text-align:center;">
+    <h2 class="section-title">👩‍🍳 Kya Aap Tiffin Banate Ho?</h2>
+    <p class="section-subtitle">Apni kitchen ko list karo aur extra income kamao! Bilkul free.</p>
+    <a href="register.html" class="btn btn-primary" style="font-size:1rem; padding:0.8rem 2rem;">Apni Kitchen List Karo — Free! 🚀</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  Made with ❤️ for <strong>Bangalore</strong> | TiffinFinder © 2024
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="js/main.js"></script>
+<script>
+  // ---- Autocomplete ----
+  // Suggestions: sirf areas
+  let acData = [];
+  let acIndex = -1;
+
+  loadTiffins().then(data => {
+    // Sirf unique areas
+    acData = [...new Set(data.map(t => t.area))];
+  });
+
+  const heroInput = document.getElementById('heroSearch');
+  const acList    = document.getElementById('acList');
+
+  heroInput.addEventListener('input', function () {
+    const q = this.value.trim().toLowerCase();
+    acIndex = -1;
+    if (!q) { closeAC(); return; }
+
+    const matches = acData.filter(area => area.toLowerCase().includes(q)).slice(0, 7);
+    if (!matches.length) { closeAC(); return; }
+
+    acList.innerHTML = matches.map((area, i) => `
+      <div class="ac-item" data-index="${i}"
+           data-label="${area}" data-type="Area"
+           onmousedown="pickSuggestion(this)">
+        <span class="ac-icon">📍</span>
+        <span class="ac-label">${highlightMatch(area, q)}</span>
+      </div>
+    `).join('');
+    acList.classList.add('open');
+  });
+
+  heroInput.addEventListener('keydown', function (e) {
+    const items = acList.querySelectorAll('.ac-item');
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      acIndex = Math.min(acIndex + 1, items.length - 1);
+      items.forEach((el, i) => el.classList.toggle('highlighted', i === acIndex));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      acIndex = Math.max(acIndex - 1, -1);
+      items.forEach((el, i) => el.classList.toggle('highlighted', i === acIndex));
+    } else if (e.key === 'Enter') {
+      if (acIndex >= 0 && items[acIndex]) {
+        pickSuggestion(items[acIndex]);
+      } else {
+        searchArea();
+      }
+    } else if (e.key === 'Escape') {
+      closeAC();
+    }
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.search-wrapper')) closeAC();
+  });
+
+  function pickSuggestion(el) {
+    const label = el.dataset.label;
+    heroInput.value = label;
+    closeAC();
+    window.location.href = `listings.html?area=${encodeURIComponent(label)}`;
+  }
+
+  function closeAC() {
+    acList.classList.remove('open');
+    acList.innerHTML = '';
+    acIndex = -1;
+  }
+
+  function highlightMatch(text, query) {
+    const idx = text.toLowerCase().indexOf(query);
+    if (idx === -1) return text;
+    return text.slice(0, idx) +
+      `<strong style="color:#FF6B35;">${text.slice(idx, idx + query.length)}</strong>` +
+      text.slice(idx + query.length);
+  }
+
+  // ---- Search ----
+  function searchArea() {
+    const val = heroInput.value.trim();
+    closeAC();
+    if (val) {
+      window.location.href = `listings.html?area=${encodeURIComponent(val)}`;
+    }
+  }
+
+  function filterByArea(area, el) {
+    document.querySelectorAll('.area-chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    renderFeatured(area);
+  }
+
+  async function renderFeatured(filterArea = 'all') {
+    const data = await loadTiffins();
+    const featured = filterArea === 'all'
+      ? data.filter(t => t.featured)
+      : data.filter(t => t.area === filterArea);
+
+    const grid = document.getElementById('featuredGrid');
+    if (!featured.length) {
+      grid.innerHTML = `<p style="color:#aaa; padding:2rem; grid-column:1/-1; text-align:center;">Is area mein koi listing nahi hai abhi 😔</p>`;
+      return;
+    }
+    grid.innerHTML = featured.map(t => buildCard(t)).join('');
+    updateFavButtons();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => renderFeatured());
+</script>
+</body>
+</html>

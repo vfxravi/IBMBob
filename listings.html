@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Browse Tiffins — TiffinFinder Bangalore</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .page-header {
+      background: var(--primary);
+      color: white;
+      padding: 2rem 1.5rem;
+    }
+    .page-header h1 { font-size: 1.8rem; font-weight: 800; }
+    .page-header p  { opacity: 0.9; margin-top: 0.3rem; }
+
+    .filter-bar {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      position: sticky;
+      top: 64px;
+      z-index: 50;
+    }
+    .filter-inner {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-select {
+      padding: 0.5rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      font-size: 0.88rem;
+      background: white;
+      color: var(--text);
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .filter-select:focus {
+      border-color: var(--primary);
+    }
+    .search-inline {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.5rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-inline:focus {
+      border-color: var(--primary);
+    }
+    .results-count {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+    .no-results {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--text-muted);
+      grid-column: 1/-1;
+    }
+    .no-results .emoji { font-size: 3rem; display: block; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo"><a href="index.html">🍱 Tiffin<span>Finder</span></a></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="listings.html" class="active">Browse</a></li>
+    <li><a href="register.html" class="btn-nav">List Your Kitchen</a></li>
+  </ul>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1>🍱 Sab Tiffin Providers</h1>
+    <p>Bangalore ke sare home cooks — filter karo, dhundho, khao!</p>
+  </div>
+</div>
+
+<!-- Filter Bar -->
+<div class="filter-bar">
+  <div class="container">
+    <div class="filter-inner">
+      <input class="search-inline" type="text" id="searchInput" placeholder="🔍 Name ya area search karo..."/>
+      <select class="filter-select" id="areaFilter">
+        <option value="">Sab Areas</option>
+        <option>Koramangala</option>
+        <option>HSR Layout</option>
+        <option>Indiranagar</option>
+        <option>Whitefield</option>
+        <option>Marathahalli</option>
+        <option>Electronic City</option>
+      </select>
+      <select class="filter-select" id="typeFilter">
+        <option value="">Veg / Non-Veg</option>
+        <option value="Veg">🟢 Veg Only</option>
+        <option value="Non-Veg">🔴 Non-Veg</option>
+        <option value="Both">🟡 Both</option>
+      </select>
+      <select class="filter-select" id="mealFilter">
+        <option value="">Meal Type</option>
+        <option value="Breakfast">Breakfast</option>
+        <option value="Lunch">Lunch</option>
+        <option value="Dinner">Dinner</option>
+      </select>
+      <select class="filter-select" id="priceFilter">
+        <option value="">Price Range</option>
+        <option value="low">₹ Under ₹2500/month</option>
+        <option value="mid">₹₹ ₹2500–₹3000</option>
+        <option value="high">₹₹₹ Above ₹3000</option>
+      </select>
+      <select class="filter-select" id="sortFilter">
+        <option value="rating">Sort: Top Rated</option>
+        <option value="price_asc">Sort: Price ↑</option>
+        <option value="price_desc">Sort: Price ↓</option>
+        <option value="reviews">Sort: Most Reviews</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Listings -->
+<section class="section">
+  <div class="container">
+    <p class="results-count" id="resultsCount">Loading...</p>
+    <div class="grid-3" id="listingsGrid">
+      <div style="color:#aaa; padding:2rem; grid-column:1/-1; text-align:center;">Loading tiffins... 🍱</div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  Made with ❤️ for <strong>Bangalore</strong> | TiffinFinder © 2024
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/main.js"></script>
+<script src="js/listings.js"></script>
+</body>
+</html>

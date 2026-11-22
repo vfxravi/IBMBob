@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register Your Kitchen — TiffinFinder</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .page-header {
+      background: var(--primary);
+      color: white;
+      padding: 2rem 1.5rem;
+    }
+    .page-header h1 { font-size: 1.8rem; font-weight: 800; }
+    .page-header p  { opacity: 0.9; margin-top: 0.3rem; }
+
+    .form-container {
+      max-width: 680px;
+      margin: 2.5rem auto;
+      background: white;
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--border);
+    }
+
+    .form-group {
+      margin-bottom: 1.3rem;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+    .form-group label .req { color: var(--primary); }
+
+    .form-control {
+      width: 100%;
+      padding: 0.65rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+      color: var(--text);
+      background: white;
+    }
+    .form-control:focus {
+      border-color: var(--primary);
+    }
+    .form-control.error {
+      border-color: #e74c3c;
+    }
+    .error-msg {
+      color: #e74c3c;
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.4rem;
+    }
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .checkbox-label input { display: none; }
+    .checkbox-label.checked {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.8rem 0 1.4rem;
+    }
+    .form-section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    /* Preview Card */
+    .preview-section {
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+    }
+    .preview-section h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    /* Success State */
+    .success-box {
+      text-align: center;
+      padding: 3rem 2rem;
+      display: none;
+    }
+    .success-box .success-icon { font-size: 4rem; }
+    .success-box h2 { font-size: 1.5rem; margin: 1rem 0 0.5rem; color: var(--secondary); }
+    .success-box p { color: var(--text-muted); }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .form-container { padding: 1.3rem; margin: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo"><a href="index.html">🍱 Tiffin<span>Finder</span></a></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="listings.html">Browse</a></li>
+    <li><a href="register.html" class="btn-nav active" style="background:#e55a26;">List Your Kitchen</a></li>
+  </ul>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1>👩‍🍳 Apni Kitchen List Karo</h1>
+    <p>Free mein register karo, hazaron customers se connect karo!</p>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Registration Form -->
+  <div class="form-container" id="formContainer">
+
+    <!-- Success Box (hidden initially) -->
+    <div class="success-box" id="successBox">
+      <div class="success-icon">🎉</div>
+      <h2>Registration Ho Gaya!</h2>
+      <p>Badhai ho! Aapki kitchen list ho gayi hai. Hum jald hi aapse contact karenge.</p>
+      <br/>
+      <a href="index.html" class="btn btn-primary">Home Pe Jao</a>
+      &nbsp;
+      <a href="listings.html" class="btn btn-outline">Listings Dekho</a>
+    </div>
+
+    <!-- Form -->
+    <form id="registerForm">
+      <p class="form-section-title">👤 Personal Details</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Aapka Naam <span class="req">*</span></label>
+          <input class="form-control" id="cookName" type="text" placeholder="e.g. Sunita Sharma"/>
+          <div class="error-msg" id="cookNameErr">Naam bharna zaroori hai</div>
+        </div>
+        <div class="form-group">
+          <label>Phone Number <span class="req">*</span></label>
+          <input class="form-control" id="cookPhone" type="tel" placeholder="10-digit mobile number"/>
+          <div class="error-msg" id="cookPhoneErr">Valid phone number daalo</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Area / Locality <span class="req">*</span></label>
+          <select class="form-control" id="cookArea">
+            <option value="">-- Area Choose Karo --</option>
+            <option>Koramangala</option>
+            <option>HSR Layout</option>
+            <option>Indiranagar</option>
+            <option>Whitefield</option>
+            <option>Marathahalli</option>
+            <option>Electronic City</option>
+            <option>BTM Layout</option>
+            <option>JP Nagar</option>
+            <option>Jayanagar</option>
+            <option>Bannerghatta Road</option>
+          </select>
+          <div class="error-msg" id="cookAreaErr">Area choose karo</div>
+        </div>
+        <div class="form-group">
+          <label>Full Address</label>
+          <input class="form-control" id="cookAddress" type="text" placeholder="Street, Building..."/>
+        </div>
+      </div>
+
+      <hr class="section-divider"/>
+      <p class="form-section-title">🍽️ Khana Ki Details</p>
+
+      <div class="form-group">
+        <label>Khana Ka Type <span class="req">*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label" id="lblVeg"><input type="checkbox" value="Veg" onchange="toggleCheck(this, 'lblVeg')"/> 🟢 Pure Veg</label>
+          <label class="checkbox-label" id="lblNonVeg"><input type="checkbox" value="Non-Veg" onchange="toggleCheck(this, 'lblNonVeg')"/> 🔴 Non-Veg</label>
+          <label class="checkbox-label" id="lblEgg"><input type="checkbox" value="Egg" onchange="toggleCheck(this, 'lblEgg')"/> 🥚 Egg</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Meal Timing <span class="req">*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-label" id="lblBreakfast"><input type="checkbox" value="Breakfast" onchange="toggleCheck(this, 'lblBreakfast')"/> 🌅 Breakfast</label>
+          <label class="checkbox-label" id="lblLunch"><input type="checkbox" value="Lunch" onchange="toggleCheck(this, 'lblLunch')"/> ☀️ Lunch</label>
+          <label class="checkbox-label" id="lblDinner"><input type="checkbox" value="Dinner" onchange="toggleCheck(this, 'lblDinner')"/> 🌙 Dinner</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Menu Items (comma se alag karo)</label>
+        <input class="form-control" id="cookMenu" type="text" placeholder="e.g. Dal, Roti, Sabzi, Rice, Salad"/>
+      </div>
+
+      <div class="form-group">
+        <label>Apne Khane Ke Baare Mein Batao</label>
+        <textarea class="form-control" id="cookDesc" rows="3" placeholder="e.g. 15 saal se ghar ka khana bana rahi hoon, fresh ingredients..."></textarea>
+      </div>
+
+      <hr class="section-divider"/>
+      <p class="form-section-title">💰 Price & Timing</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Monthly Price (₹) <span class="req">*</span></label>
+          <input class="form-control" id="cookPriceMonthly" type="number" placeholder="e.g. 2500" min="500"/>
+          <div class="error-msg" id="cookPriceErr">Valid price daalo</div>
+        </div>
+        <div class="form-group">
+          <label>Daily Price (₹)</label>
+          <input class="form-control" id="cookPriceDaily" type="number" placeholder="e.g. 100" min="30"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Timing</label>
+        <input class="form-control" id="cookTiming" type="text" placeholder="e.g. 12pm–2pm, 7pm–9pm"/>
+      </div>
+
+      <div style="margin-top:1.8rem; display:flex; gap:1rem;">
+        <button type="button" class="btn btn-primary" onclick="previewCard()" style="flex:1;">👁️ Preview Dekho</button>
+        <button type="submit" class="btn btn-green" style="flex:1;">✅ Submit Karo</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Preview -->
+  <div class="preview-section" id="previewSection" style="display:none;">
+    <h3>👁️ Aapka Card Preview:</h3>
+    <div id="previewCard"></div>
+  </div>
+</div>
+
+<footer>
+  Made with ❤️ for <strong>Bangalore</strong> | TiffinFinder © 2024
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/main.js"></script>
+<script src="js/register.js"></script>
+</body>
+</html>
